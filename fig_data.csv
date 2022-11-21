@@ -1,0 +1,136 @@
+target,demo,label,count,label_var
+0,AgeBand,"(12.924, 32.0]",22179,13-32 Years
+0,AgeBand,"(32.0, 51.0]",1786,32-51 Years
+0,AgeBand,"(51.0, 70.0]",442,51-70 Years
+0,AgeBand,"(70.0, 89.0]",26,70-89 Years
+0,education,0,330,Did not wish to answer
+0,education,1,2793,Less than high school
+0,education,2,9647,High school
+0,education,3,8954,University degree
+0,education,4,2709,Graduate degree
+0,familysize,0,733,
+0,familysize,1,1874,
+0,familysize,10,106,
+0,familysize,11,59,
+0,familysize,12,30,
+0,familysize,13,10,
+0,familysize,14,5,
+0,familysize,15,4,
+0,familysize,16,2,
+0,familysize,17,2,
+0,familysize,2,5589,
+0,familysize,21,1,
+0,familysize,24,1,
+0,familysize,26,1,
+0,familysize,3,5687,
+0,familysize,4,4534,
+0,familysize,5,2949,
+0,familysize,6,1500,
+0,familysize,7,732,
+0,familysize,8,409,
+0,familysize,9,205,
+0,gender,0,44,Did not wish to answer
+0,gender,1,5175,Male
+0,gender,2,18800,Female
+0,gender,3,414,Other
+0,married,0,128,Did not wish to answer
+0,married,1,21474,Never married
+0,married,2,2194,Currently married
+0,married,3,637,Previously married
+0,orientation,0,1887,Did not wish to answer
+0,orientation,1,14389,Heterosexual
+0,orientation,2,3453,Bisexual
+0,orientation,3,1272,Homosexual
+0,orientation,4,1233,Asexual
+0,orientation,5,2199,Other
+0,race,10,13969,Asian
+0,race,20,221,Arab
+0,race,30,360,Black
+0,race,40,11,Indigenous Australian
+0,race,50,150,Native American
+0,race,60,6802,White
+0,race,70,2920,Other
+0,religion,0,228,Did not wish to answer
+0,religion,1,2084,Agnostic
+0,religion,10,13253,Muslim
+0,religion,11,37,Sikh
+0,religion,12,1187,Other
+0,religion,2,2580,Atheist
+0,religion,3,297,Buddhist
+0,religion,4,1933,Christian (Catholic)
+0,religion,5,83,Christian (Mormon)
+0,religion,6,896,Christian (Protestant)
+0,religion,7,1371,Christian (Other)
+0,religion,8,404,Hindu
+0,religion,9,80,Jewish
+0,urban,0,251,Did not wish to answer
+0,urban,1,5079,Rural (country side)
+0,urban,2,8030,Suburban
+0,urban,3,11073,"Urban (town, city)"
+1,AgeBand,"(12.924, 32.0]",13355,13-32 Years
+1,AgeBand,"(32.0, 51.0]",1571,32-51 Years
+1,AgeBand,"(51.0, 70.0]",377,51-70 Years
+1,AgeBand,"(70.0, 89.0]",27,70-89 Years
+1,education,0,185,Did not wish to answer
+1,education,1,1270,Less than high school
+1,education,2,5416,High school
+1,education,3,6161,University degree
+1,education,4,2298,Graduate degree
+1,familysize,0,392,
+1,familysize,1,1072,
+1,familysize,10,89,
+1,familysize,11,50,
+1,familysize,12,26,
+1,familysize,13,9,
+1,familysize,14,3,
+1,familysize,15,2,
+1,familysize,16,3,
+1,familysize,17,1,
+1,familysize,19,1,
+1,familysize,2,3427,
+1,familysize,23,1,
+1,familysize,3,3517,
+1,familysize,4,3004,
+1,familysize,5,1880,
+1,familysize,6,949,
+1,familysize,7,511,
+1,familysize,8,267,
+1,familysize,9,126,
+1,gender,0,23,Did not wish to answer
+1,gender,1,3611,Male
+1,gender,2,11559,Female
+1,gender,3,137,Other
+1,married,0,67,Did not wish to answer
+1,married,1,12648,Never married
+1,married,2,2161,Currently married
+1,married,3,454,Previously married
+1,orientation,0,1222,Did not wish to answer
+1,orientation,1,9877,Heterosexual
+1,orientation,2,1553,Bisexual
+1,orientation,3,680,Homosexual
+1,orientation,4,741,Asexual
+1,orientation,5,1257,Other
+1,race,10,9130,Asian
+1,race,20,111,Arab
+1,race,30,243,Black
+1,race,40,10,Indigenous Australian
+1,race,50,70,Native American
+1,race,60,3856,White
+1,race,70,1910,Other
+1,religion,0,128,Did not wish to answer
+1,religion,1,1161,Agnostic
+1,religion,10,8813,Muslim
+1,religion,11,27,Sikh
+1,religion,12,616,Other
+1,religion,2,1263,Atheist
+1,religion,3,230,Buddhist
+1,religion,4,1163,Christian (Catholic)
+1,religion,5,39,Christian (Mormon)
+1,religion,6,648,Christian (Protestant)
+1,religion,7,882,Christian (Other)
+1,religion,8,296,Hindu
+1,religion,9,64,Jewish
+1,urban,0,131,Did not wish to answer
+1,urban,1,3235,Rural (country side)
+1,urban,2,5200,Suburban
+1,urban,3,6764,"Urban (town, city)"
