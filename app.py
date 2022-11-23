@@ -42,14 +42,16 @@ chart_data = pd.DataFrame(
     np.random.randn(20, 3),
     columns=['a', 'b', 'c'])
 
-c = alt.Chart(chart_data).mark_circle().encode(
-    x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
 
-st.altair_chart(c, use_container_width=True)
+# test altair chart
+# c = alt.Chart(chart_data).mark_circle().encode(
+#     x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
+
+# st.altair_chart(c, use_container_width=True)
 
 
 
-
+# altair main chart
 selection = alt.selection_multi(fields=['demo','label_var'])
 click = alt.selection_multi()
 color = color=alt.Color(
@@ -69,31 +71,31 @@ hist1 = alt.Chart(fig_data).mark_bar().encode(
      selection
 ).properties(width=300, height=300)
 
-# hist2 = alt.Chart(fig_data).mark_bar().encode(
-#     x='count',
-#     y='target',
-#     color = alt.Color('label_var',scale=alt.Scale(scheme="yellowgreenblue"),legend=None),
-#     tooltip=[alt.Tooltip("target", title="target"),
-#             alt.Tooltip("label_var", title="label_var"),
-#             alt.Tooltip("demo", title="demo")]  
-# ).add_selection(
-#      selection
-#  ).transform_filter(
-#    selection
-# ).properties(width=400, height=100)
+hist2 = alt.Chart(fig_data).mark_bar().encode(
+    x='count',
+    y='target',
+    color = alt.Color('label_var',scale=alt.Scale(scheme="yellowgreenblue"),legend=None),
+    tooltip=[alt.Tooltip("target", title="target"),
+            alt.Tooltip("label_var", title="label_var"),
+            alt.Tooltip("demo", title="demo")]  
+).add_selection(
+     selection
+ ).transform_filter(
+   selection
+).properties(width=400, height=100)
 
-# # total_participation_viz=alt.vconcat(hist1, hist2).properties(
-# #     title={
-# #       "text": ["Which Demographic by Label has the most count?"], 
-# #       "subtitle": ["Click to see Count of Demographic by Depression Target"],
-# #       "subtitleFontSize":13,
-# #       'subtitleFontStyle':'italic',
-# #       "color": "black",
-# #       "subtitleColor": "black"
-# #     }
-# # ).configure(background='#E7E6E1')
+total_participation_viz=alt.vconcat(hist1, hist2).properties(
+    title={
+      "text": ["Which Demographic by Label has the most count?"], 
+      "subtitle": ["Click to see Count of Demographic by Depression Target"],
+      "subtitleFontSize":13,
+      'subtitleFontStyle':'italic',
+      "color": "black",
+      "subtitleColor": "black"
+    }
+).configure(background='#E7E6E1')
 
-st.altair_chart(hist1,use_container_width=True)
+st.altair_chart(total_participation_viz,use_container_width=True)
 
 
 
