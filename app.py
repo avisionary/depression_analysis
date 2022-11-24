@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import altair as alt
+import plotly.express as px
 import numpy as np
 import gzip
 import pickle
@@ -32,15 +33,20 @@ st.markdown('Predicting if a person is at risk of depression using their persona
 df = pd.read_csv("data/depression_overall.csv")
 
 
-st.text(df.head())
+# st.text(df.head())
 
-fig_data = pd.read_csv("data/fig_data.csv")
-st.text(fig_data.head())
+fig_data = pd.read_csv("data/depression_graph.csv")
+# fig_data2 = pd.read_csv("data/fig_data.csv")
 
 
-chart_data = pd.DataFrame(
-    np.random.randn(20, 3),
-    columns=['a', 'b', 'c'])
+# st.text(fig_data.head())
+
+
+col1, col2 = st.columns(2)
+
+# chart_data = pd.DataFrame(
+#     np.random.randn(20, 3),
+#     columns=['a', 'b', 'c'])
 
 
 # test altair chart
@@ -51,52 +57,57 @@ chart_data = pd.DataFrame(
 
 
 
-# altair main chart
-selection = alt.selection_multi(fields=['demo','label_var'])
-click = alt.selection_multi()
-color = color=alt.Color(
-            "count", scale=alt.Scale(scheme="redyellowblue"), legend=None,
-        )
+#altair main chart
+# selection = alt.selection_multi(fields=['demo','label_var'])
+# click = alt.selection_multi()
+# color = color=alt.Color(
+#             "count", scale=alt.Scale(scheme="redyellowblue"), legend=None,
+#         )
 
-hist1 = alt.Chart(fig_data).mark_bar().encode(
-    x='demo',
-    y='count',
-    color=alt.condition(selection, 'label_var', alt.value('grey'),scale=alt.Scale(scheme=""),
-            legend=None),
-    tooltip=[
-            alt.Tooltip("demo", title="demo"),
-            alt.Tooltip("count", title="count"),
-            alt.Tooltip("label_var", title="label_var")],
-).add_selection(
-     selection
-).properties(width=300, height=300)
+# hist1 = alt.Chart(fig_data).mark_bar().encode(
+#     x='demo',
+#     y='count',
+#     color=alt.condition(selection, 'label_var', alt.value('grey'),scale=alt.Scale(scheme=""),
+#             legend=None),
+#     tooltip=[
+#             alt.Tooltip("demo", title="demo"),
+#             alt.Tooltip("count", title="count"),
+#             alt.Tooltip("label_var", title="label_var")],
+# ).add_selection(
+#      selection
+# ).properties(width=300, height=300)
 
-hist2 = alt.Chart(fig_data).mark_bar().encode(
-    x='count',
-    y='target',
-    color = alt.Color('label_var',scale=alt.Scale(scheme="yellowgreenblue"),legend=None),
-    tooltip=[alt.Tooltip("target", title="target"),
-            alt.Tooltip("label_var", title="label_var"),
-            alt.Tooltip("demo", title="demo")]  
-).add_selection(
-     selection
- ).transform_filter(
-   selection
-).properties(width=400, height=100)
+# hist2 = alt.Chart(fig_data2).mark_bar().encode(
+#     x='count',
+#     y='target',
+#     color = alt.Color('label_var',scale=alt.Scale(scheme="yellowgreenblue"),legend=None),
+#     tooltip=[alt.Tooltip("target", title="target"),
+#             alt.Tooltip("label_var", title="label_var"),
+#             alt.Tooltip("demo", title="demo")]  
+# ).add_selection(
+#      selection
+#  ).transform_filter(
+#    selection
+# ).properties(width=400, height=100)
 
-total_participation_viz=alt.vconcat(hist1, hist2).properties(
-    title={
-      "text": ["Which Demographic by Label has the most count?"], 
-      "subtitle": ["Click to see Count of Demographic by Depression Target"],
-      "subtitleFontSize":13,
-      'subtitleFontStyle':'italic',
-      "color": "black",
-      "subtitleColor": "black"
-    }
-).configure(background='#E7E6E1')
+# total_participation_viz=alt.vconcat(hist1, hist2).properties(
+#     title={
+#       "text": ["Which Demographic by Label has the most count?"], 
+#       "subtitle": ["Click to see Count of Demographic by Depression Target"],
+#       "subtitleFontSize":13,
+#       'subtitleFontStyle':'italic',
+#       "color": "black",
+#       "subtitleColor": "black"
+#     }
+# ).configure(background='#E7E6E1')
 
-st.altair_chart(total_participation_viz,use_container_width=True)
+# st.altair_chart(hist1)
 
+fig = px.scatter(fig_data, x="target", y="age",color="target")
+col1.plotly_chart(fig, use_container_width=True)
+
+fig = px.scatter(fig_data, x="target",y ="education",color="target")
+col2.plotly_chart(fig, use_container_width=True)
 
 
 # personality types
@@ -109,16 +120,16 @@ display_tipi = ["Disagree strongly", "Disagree moderately","Disagree a little","
 
 options = list(range(1,len(display_tipi)+1))
 
-col1, col2 = st.columns(2)
+col3, col4 = st.columns(2)
 
-with col1:
+with col3:
     TIPI1 = st.selectbox("Extraverted, enthusiastic", options, format_func=lambda x: display_tipi[x-1])
     TIPI2 = st.selectbox("Critical, quarrelsome", options, format_func=lambda x: display_tipi[x-1])
     TIPI3 = st.selectbox("Dependable, self-disciplined", options, format_func=lambda x: display_tipi[x-1])
     TIPI4 = st.selectbox("Anxious, easily upset", options, format_func=lambda x: display_tipi[x-1])
     TIPI5 = st.selectbox("Open to new experiences, complex", options, format_func=lambda x: display_tipi[x-1])
     
-with col2:
+with col4:
     TIPI6 = st.selectbox("Reserved, quiet", options, format_func=lambda x: display_tipi[x-1])
     TIPI7 = st.selectbox("Sympathetic, warm", options, format_func=lambda x: display_tipi[x-1])
     TIPI8 = st.selectbox("Disorganized, careless", options, format_func=lambda x: display_tipi[x-1])
@@ -327,5 +338,16 @@ if st.button("Submit"):
     if prediction == 1:
         st.markdown(f"**This person is AT risk of severe depression. Take action!**")
 
+    fig = px.scatter(fig_data, x="target", y="age",color="target")
+    fig.add_traces(
+    px.scatter(df.sample(1), x=prediction, y=age).update_traces(marker_size=20, marker_color="red").data
+)
+    col1.plotly_chart(fig, use_container_width=True)
+
+    fig = px.scatter(fig_data, x=prediction,y =education,color="target")
+    fig.add_traces(
+    px.scatter(df.sample(1), x="x", y="y").update_traces(marker_size=20, marker_color="red").data
+)
+    col2.plotly_chart(fig, use_container_width=True)
     
     
