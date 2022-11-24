@@ -7,6 +7,7 @@ import plotly.express as px
 import numpy as np
 import gzip
 import pickle
+import brotli
 
 def _max_width_(prcnt_width:int = 75):
     max_width_str = f"max-width: {prcnt_width}%;"
@@ -40,8 +41,6 @@ fig_data = pd.read_csv("data/depression_graph.csv")
 
 
 # st.text(fig_data.head())
-
-
 col1, col2 = st.columns(2)
 
 # chart_data = pd.DataFrame(
@@ -326,7 +325,7 @@ if st.button("Submit"):
 
     # Unpickle classifier
     clf = joblib.load("StackedPickle.pkl")
-    #clf = joblib.load(load_zipped_pickle("StackedPickle.pkl.zip"))
+    #clf = joblib.load(brotli.decompress("StackedPickle.pkl.bt")))
 
     # Get prediction
     prediction = clf.predict(X)[0]
@@ -338,15 +337,17 @@ if st.button("Submit"):
     if prediction == 1:
         st.markdown(f"**This person is AT risk of severe depression. Take action!**")
 
+    data = [[age,education,prediction]]
+    df = pd.DataFrame(data, columns=['age', 'edu','pred'])
     fig = px.scatter(fig_data, x="target", y="age",color="target")
     fig.add_traces(
-    px.scatter(df.sample(1), x=prediction, y=age).update_traces(marker_size=20, marker_color="red").data
+    px.scatter(df, x='pred', y='age').update_traces(marker_size=20, marker_color="red").data
 )
     col1.plotly_chart(fig, use_container_width=True)
 
-    fig = px.scatter(fig_data, x=prediction,y =education,color="target")
+    fig = px.scatter(fig_data, x="target", y="education",color="target")
     fig.add_traces(
-    px.scatter(df.sample(1), x="x", y="y").update_traces(marker_size=20, marker_color="red").data
+    px.scatter(df, x='pred', y='edu').update_traces(marker_size=20, marker_color="red").data
 )
     col2.plotly_chart(fig, use_container_width=True)
     
