@@ -6,7 +6,7 @@ import altair as alt
 import plotly.express as px
 import numpy as np
 import gzip
-import brotli
+#import brotli
 
 
 import bz2
