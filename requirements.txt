@@ -10,4 +10,3 @@ plotly
 altair
 bz2
 pickle
-_pickle
