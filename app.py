@@ -6,8 +6,12 @@ import altair as alt
 import plotly.express as px
 import numpy as np
 import gzip
-import pickle
 import brotli
+
+
+import bz2
+import pickle
+import _pickle as cPickle
 
 def _max_width_(prcnt_width:int = 75):
     max_width_str = f"max-width: {prcnt_width}%;"
@@ -25,6 +29,13 @@ def load_zipped_pickle(filename):
     with gzip.open(filename, 'rb') as f:
         loaded_object = pickle.load(f)
         return loaded_object
+
+
+# Load any compressed pickle file
+def decompress_pickle(file):
+    data = bz2.BZ2File(file, 'rb')
+    data = cPickle.load(data)
+    return data
 
 # title 
 st.header("Depression Analysis")
@@ -167,11 +178,6 @@ with col2:
 
 
 
-
-
-st.write(vcl1)
-
-
 st.subheader("Demographic Type Questions")
 
 
@@ -180,7 +186,7 @@ st.subheader("Demographic Type Questions")
 display_edu = ["Less than high school","High school","University degree","Graduate degree"]
 options_edu = list(range(1,len(display_edu)+1))
 education = st.selectbox("How much education have you completed?", options_edu, format_func=lambda x: display_edu[x-1])
-st.write(education)
+#st.write(education)
 for i in range(len(display_edu)+1):
     exec(f"education_{i} = 0")
 
@@ -190,7 +196,7 @@ for i in range(len(display_edu)+1):
 display_urban = ["Rural (country side)","Suburban","Urban (town, city)"]
 options_urban = list(range(1,len(display_urban)+1))
 urban = st.selectbox("What type of area did you live when you were a child?", options_urban, format_func=lambda x: display_urban[x-1])
-st.write(urban)
+#st.write(urban)
 for i in range(len(display_urban)+1):
     exec(f"urban_{i} = 0")
 
@@ -200,7 +206,7 @@ for i in range(len(display_urban)+1):
 display_gender = ["Male","Female","Other"]
 options_gender = list(range(1,len(display_gender)+1))
 gender = st.selectbox("What is your gender?", options_gender, format_func=lambda x: display_gender[x-1])
-st.write(gender)
+#st.write(gender)
 for i in range(len(display_gender)+1):
     exec(f"gender_{i} = 0")
 
@@ -217,8 +223,8 @@ AgeBand_4 = 0
 display_religion = ["Agnostic", "Atheist", "Buddhist", "Christian (Catholic)", "Christian (Mormon)", "Christian (Protestant)", "Christian (Other)", "Hindu", "Jewish", "Muslim","Sikh","Other"]
 options_religion = list(range(1,len(display_religion)+1))
 religion = st.selectbox("What is your religion?", options_religion, format_func=lambda x: display_religion[x-1])
-st.write(religion)
-st.write(religion + gender)
+#st.write(religion)
+#st.write(religion + gender)
 for i in range(len(display_religion)+1):
     exec(f"religion_{i} = 0")
 
@@ -227,7 +233,7 @@ for i in range(len(display_religion)+1):
 display_orientation = ["Heterosexual", "Bisexual", "Homosexual", "Asexual", "Other"]
 options_orientation = list(range(1,len(display_orientation)+1))
 orientation = st.selectbox("What is your sexual orientation?", options_orientation, format_func=lambda x: display_orientation[x-1])
-st.write(orientation)
+#st.write(orientation)
 for i in range(len(display_orientation)+1):
     exec(f"orientation_{i} = 0")
 
@@ -236,7 +242,7 @@ for i in range(len(display_orientation)+1):
 display_race = ["Asian", "Arab", "Black", "Indigenous Australian", "Native American","White","Other"]
 options_race = list(range(10,(len(display_race)+1)*10,10))
 race = st.selectbox("What is your race?", options_race, format_func=lambda x: display_race[int((x-1)/10)])
-st.write(race)
+#st.write(race)
 for i in options_race:
     exec(f"race_{i} = 0")
 
@@ -245,7 +251,7 @@ for i in options_race:
 display_married = ["Never married", "Currently married", "Previously married"]
 options_married = list(range(1,len(display_married)+1))
 married = st.selectbox("What is your marital status?", options_married, format_func=lambda x: display_married[x-1])
-st.write(married)
+#st.write(married)
 for i in range(len(display_married)+1):
     exec(f"married_{i} = 0")
 
@@ -324,8 +330,9 @@ if st.button("Submit"):
     st.write(X.head())
 
     # Unpickle classifier
-    clf = joblib.load("StackedPickle.pkl")
-    #clf = joblib.load(brotli.decompress("StackedPickle.pkl.bt")))
+    #clf = joblib.load("StackedPickle.pkl")
+    #clf = joblib.load(brotli.decompress("StackedPickle.pkl.bt"))
+    clf = decompress_pickle("StackedPickle_A.pbz2") 
 
     # Get prediction
     prediction = clf.predict(X)[0]
