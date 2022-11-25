@@ -264,16 +264,22 @@ VCL = vcl1+vcl2+vcl3+vcl4+vcl5-vcl6+vcl7+vcl8-vcl9+vcl10+vcl11-vcl12+vcl13+vcl14
 type = st.radio("Do you want to use above data or csv type?",["Above","CSV"])
 if type == "CSV":
     txt = st.text_area("Enter comma separated values here:")
-    
-    
+
+
+
 # If button is pressed
 if st.button("Submit"):
     if type == "CSV":
         #(TIPI1,TIPI2,TIPI3,TIPI4,TIPI5,TIPI6,TIPI7,TIPI8,TIPI9,TIPI10,education,urban,gender,age,religion,orientation,race,married,familysize,VCL) = (2,5,2,2,2,6,5,5,7,2,1,3,2,17,4,3,20,1,3,5)
+        
         txt = txt.split(",")
-        txt = [float(x) for x in txt]
-
+        if len(txt) != 20:
+            st.write("Not enough values to unpack. Please reload the page and enter 20 values.")
+            exit()
+        txt = [int(x) for x in txt]
+        
         [TIPI1,TIPI2,TIPI3,TIPI4,TIPI5,TIPI6,TIPI7,TIPI8,TIPI9,TIPI10,education,urban,gender,age,religion,orientation,race,married,familysize,VCL] = txt
+            
     age = float(age)
     if age >=12.924 and age < 32.0:
         AgeBand_1 = 1
@@ -283,7 +289,6 @@ if st.button("Submit"):
         AgeBand_3 = 1
     if age >=70 and age < 89:
         AgeBand_4 = 1
-
 
     exec(f"education_{education} = 1")
     exec(f"urban_{urban} = 1")
@@ -304,30 +309,30 @@ if st.button("Submit"):
     familysize = (familysize - u_x_familysize)/sigma_x_familysize
 
     columns = ['TIPI1', 'TIPI2', 'TIPI3', 'TIPI4', 'TIPI5', 'TIPI6', 'TIPI7', 'TIPI8',
-       'TIPI9', 'TIPI10', 'familysize', 'VCL', 'education_0', 'education_1',
-       'education_2', 'education_3', 'education_4', 'urban_0', 'urban_1',
-       'urban_2', 'urban_3', 'gender_0', 'gender_1', 'gender_2', 'gender_3',
-       'religion_0', 'religion_1', 'religion_2', 'religion_3', 'religion_4',
-       'religion_5', 'religion_6', 'religion_7', 'religion_8', 'religion_9',
-       'religion_10', 'religion_11', 'religion_12', 'orientation_0',
-       'orientation_1', 'orientation_2', 'orientation_3', 'orientation_4',
-       'orientation_5', 'race_10', 'race_20', 'race_30', 'race_40', 'race_50',
-       'race_60', 'race_70', 'married_0', 'married_1', 'married_2',
-       'married_3', 'AgeBand_1', 'AgeBand_2', 'AgeBand_3', 'AgeBand_4']
+    'TIPI9', 'TIPI10', 'familysize', 'VCL', 'education_0', 'education_1',
+    'education_2', 'education_3', 'education_4', 'urban_0', 'urban_1',
+    'urban_2', 'urban_3', 'gender_0', 'gender_1', 'gender_2', 'gender_3',
+    'religion_0', 'religion_1', 'religion_2', 'religion_3', 'religion_4',
+    'religion_5', 'religion_6', 'religion_7', 'religion_8', 'religion_9',
+    'religion_10', 'religion_11', 'religion_12', 'orientation_0',
+    'orientation_1', 'orientation_2', 'orientation_3', 'orientation_4',
+    'orientation_5', 'race_10', 'race_20', 'race_30', 'race_40', 'race_50',
+    'race_60', 'race_70', 'married_0', 'married_1', 'married_2',
+    'married_3', 'AgeBand_1', 'AgeBand_2', 'AgeBand_3', 'AgeBand_4']
 
     # Store inputs into dataframe
     X = pd.DataFrame([[TIPI1, TIPI2, TIPI3, TIPI4, TIPI5, TIPI6, TIPI7, TIPI8,
-       TIPI9, TIPI10, familysize, VCL, education_0, education_1,
-       education_2, education_3, education_4, urban_0, urban_1,
-       urban_2, urban_3, gender_0, gender_1, gender_2, gender_3,
-       religion_0, religion_1, religion_2, religion_3, religion_4,
-       religion_5, religion_6, religion_7, religion_8, religion_9,
-       religion_10, religion_11, religion_12, orientation_0,
-       orientation_1, orientation_2, orientation_3, orientation_4,
-       orientation_5, race_10, race_20, race_30, race_40, race_50,
-       race_60, race_70, married_0, married_1, married_2,
-       married_3, AgeBand_1, AgeBand_2, AgeBand_3, AgeBand_4]], 
-                     columns = columns)
+    TIPI9, TIPI10, familysize, VCL, education_0, education_1,
+    education_2, education_3, education_4, urban_0, urban_1,
+    urban_2, urban_3, gender_0, gender_1, gender_2, gender_3,
+    religion_0, religion_1, religion_2, religion_3, religion_4,
+    religion_5, religion_6, religion_7, religion_8, religion_9,
+    religion_10, religion_11, religion_12, orientation_0,
+    orientation_1, orientation_2, orientation_3, orientation_4,
+    orientation_5, race_10, race_20, race_30, race_40, race_50,
+    race_60, race_70, married_0, married_1, married_2,
+    married_3, AgeBand_1, AgeBand_2, AgeBand_3, AgeBand_4]], 
+                    columns = columns)
 
     st.markdown("You have entered the following data:")
     st.write(X.head())
