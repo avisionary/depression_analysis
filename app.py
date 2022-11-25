@@ -48,7 +48,7 @@ df = pd.read_csv("data/depression_overall.csv")
 # st.text(df.head())
 
 fig_data = pd.read_csv("data/depression_graph.csv")
-# fig_data2 = pd.read_csv("data/fig_data.csv")
+fig_data2 = pd.read_csv("data/fig_data.csv")
 
 
 # st.text(fig_data.head())
@@ -68,24 +68,25 @@ col1, col2 = st.columns(2)
 
 
 #altair main chart
-# selection = alt.selection_multi(fields=['demo','label_var'])
-# click = alt.selection_multi()
-# color = color=alt.Color(
-#             "count", scale=alt.Scale(scheme="redyellowblue"), legend=None,
-#         )
+#selection = alt.selection_multi(fields=['demo','label_var'])
+color = color=alt.Color(
+            "count", scale=alt.Scale(scheme="redyellowblue"), legend=None,
+        )
 
-# hist1 = alt.Chart(fig_data).mark_bar().encode(
-#     x='demo',
-#     y='count',
-#     color=alt.condition(selection, 'label_var', alt.value('grey'),scale=alt.Scale(scheme=""),
-#             legend=None),
-#     tooltip=[
-#             alt.Tooltip("demo", title="demo"),
-#             alt.Tooltip("count", title="count"),
-#             alt.Tooltip("label_var", title="label_var")],
-# ).add_selection(
-#      selection
-# ).properties(width=300, height=300)
+hist1 = alt.Chart(fig_data2).mark_bar().encode(
+    y='demo',
+    x='count',
+    #color=alt.condition('label_var', alt.value('grey'),scale=alt.Scale(scheme=""),legend=None,if_false="label_var"),
+    color = color,
+    #color = "label_var",
+    tooltip=[
+            alt.Tooltip("demo", title="demo"),
+            alt.Tooltip("count", title="count"),
+            alt.Tooltip("label_var", title="label_var")],
+).properties(width=600, height=300)
+
+
+# add_selection(selection)
 
 # hist2 = alt.Chart(fig_data2).mark_bar().encode(
 #     x='count',
@@ -111,7 +112,7 @@ col1, col2 = st.columns(2)
 #     }
 # ).configure(background='#E7E6E1')
 
-# st.altair_chart(hist1)
+st.altair_chart(hist1)
 
 fig = px.scatter(fig_data, x="target", y="age",color="target")
 col1.plotly_chart(fig, use_container_width=True)
