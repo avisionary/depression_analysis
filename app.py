@@ -271,6 +271,7 @@ if st.button("Submit"):
     if type == "CSV":
         #(TIPI1,TIPI2,TIPI3,TIPI4,TIPI5,TIPI6,TIPI7,TIPI8,TIPI9,TIPI10,education,urban,gender,age,religion,orientation,race,married,familysize,VCL) = (2,5,2,2,2,6,5,5,7,2,1,3,2,17,4,3,20,1,3,5)
         txt = txt.split(",")
+        txt = [float(x) for x in txt]
 
         [TIPI1,TIPI2,TIPI3,TIPI4,TIPI5,TIPI6,TIPI7,TIPI8,TIPI9,TIPI10,education,urban,gender,age,religion,orientation,race,married,familysize,VCL] = txt
     age = float(age)
