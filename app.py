@@ -351,13 +351,13 @@ if st.button("Submit"):
     px.scatter(df, x='pred', y='age').update_traces(marker_size=20, marker_color="red").data
 )
     #col1.plotly_chart(fig, use_container_width=True)
-    col1.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)
 
     fig = px.scatter(fig_data, x="target", y="education",color="target")
     fig.add_traces(
     px.scatter(df, x='pred', y='edu').update_traces(marker_size=20, marker_color="red").data
 )
     #col2.plotly_chart(fig, use_container_width=True)
-    col2.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)
     
     
